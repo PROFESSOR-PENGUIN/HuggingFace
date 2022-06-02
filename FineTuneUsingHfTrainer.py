@@ -27,7 +27,15 @@ X_train,X_val,y_train,y_val=train_test_split(X,y,test_size=0.2)
 X_train_tokenized=tokenizer(X_train,padding=True,truncation=True,max_length=512)
 X_val_tokenized=tokenizer(X_train,padding=True,truncation=True,max_length=512)
 
-#class for torch dataset conversion
+# The Trainer API requires the model to be in a torch.utils.data.Dataset class.
+# Hence, we would need to create a new class that inherits from the torch Dataset class.
+
+# Also, In the inherited class, we need to have the __getitem__and __len__ method
+# which allows Trainer to create batches of data and to obtain the length respectively.
+
+# The purpose of setting the default labels parameter as None
+# is so that we can reuse the class to make prediction on unseen data as these data do not have labels.
+
 class TorchDataset(torch.utils.data.Dataset):
     def __init__(self, encodings, labels=None):
         self.encodings = encodings
@@ -100,8 +108,13 @@ trainer=CustomTrainer(
 # Train pre-trained model
 CustomTrainer.train()
 
+# After the model is trained, we repeat the same steps for the test data:
+# Tokenize test data with pretrained tokenizer
+# Create torch dataset
+# Load trained model
+# Define Trainer
 
-# ----- Predict -----#
+# ----- Prediction Steps -----#
 # Load test data
 test_data = pd.read_csv("test.csv")
 X_test = list(test_data["review"])
