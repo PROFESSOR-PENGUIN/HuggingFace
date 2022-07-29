@@ -2,6 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+<<<<<<< HEAD
     <mapping directory="$PROJECT_DIR$/deberta_v3_large_mlm_feedback_prize" vcs="Git" />
+=======
+>>>>>>> 4f5938a03a912ce1b4a1079db508caa5ead8f81b
   </component>
 </project>
